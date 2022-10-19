@@ -1,0 +1,76 @@
+.container {
+  padding: 40px;
+  background: #ffffff;
+  box-shadow: 0px 15px 20px -5px rgba(13, 113, 130, 0.15);
+  border-radius: 5px;
+  max-width: 540px;
+  margin: 0 auto 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.container h5 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 17px;
+  letter-spacing: 0px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #5ca5a5;
+}
+
+.container div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.container div label {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 17px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #5ca5a5;
+}
+
+.container div input {
+  padding: 15px 0 15px 32px;
+  border: 1px solid #7c8f8f;
+  border-radius: 5px;
+}
+
+.container button {
+  background: #38cc8b;
+  box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.0908818);
+  border-radius: 5px;
+  padding: 15px 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 17px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  border: 1px solid #38cc8b;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.container button:hover {
+  background-color: orange;
+  border: 1px solid #fff;
+}
+
+/* <form action='#' className={styles.container}>
+      <div>
+        <label htmlFor='title'>Title:</label>
+        <input type='text' id='title' name='title' />
+      </div>
+      <div>
+        <label htmlFor='body'>Text:</label>
+        <input type='text' id='body' name='body' />
+      </div>
+      <button>Create Post</button>
+    </form> */

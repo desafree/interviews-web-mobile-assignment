@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from 'react'
 import postContext from './context/postContext'
-import CheckErrorInResponse from './utils/chekErrorInResponse'
+import CheckErrorInResponse from './utils/checkErrorInResponse'
 import PostsList from './components/PostsList'
+import NewPostForm from './components/NewPostForm'
 import './App.css'
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <>
+      <NewPostForm></NewPostForm>
       <PostsList></PostsList>
     </>
   )

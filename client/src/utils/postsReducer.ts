@@ -10,7 +10,7 @@ function postsReducer(state: post[], action: actionPostsReducer) {
     return newState
   } else if (action.type === 'REMOVE' && !Array.isArray(action.payload)) {
     const newState = state.filter((post) => {
-      if (!Array.isArray(action.payload) && post.id !== action.payload.id) true
+      if (!Array.isArray(action.payload) && post.id !== action.payload.id) return true
     })
     return newState
   } else if (action.type === 'ADD' && !Array.isArray(action.payload)) {

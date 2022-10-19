@@ -1,7 +1,8 @@
 import post from './post'
+import actionType from '../types/actionType'
 
 interface actionPostsReducer {
-  type: string
+  type: actionType
   payload: post | post[]
 }
 
