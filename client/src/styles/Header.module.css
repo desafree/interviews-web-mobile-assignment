@@ -7,3 +7,9 @@
   font-size: 36px;
   color: #fff;
 }
+
+@media only screen and (max-width: 500px) {
+  .container {
+    font-size: 28px;
+  }
+}
