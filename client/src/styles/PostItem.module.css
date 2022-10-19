@@ -1,0 +1,39 @@
+.container {
+  padding: 32px 40px;
+  background: #ffffff;
+  box-shadow: 0px 15px 20px -5px rgba(13, 113, 130, 0.15);
+  border-radius: 5px;
+  transition: all 0.3s;
+  border-left: 5px solid #5ca5a5;
+}
+
+.container:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 15px 20px -5px rgba(13, 113, 130, 0.05);
+  border-left: 5px solid orange;
+}
+
+.text h5 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 17px;
+  letter-spacing: 0px;
+  text-align: left;
+  margin-bottom: 14px;
+  color: #5ca5a5;
+  text-transform: capitalize;
+  transition: all 0.3s;
+}
+
+.container:hover .text h5 {
+  color: orange;
+}
+
+.text p {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.13846154510974884px;
+  text-align: left;
+  color: #7c8f8f;
+}
