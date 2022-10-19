@@ -1,9 +1,15 @@
-import { useContext, useState } from 'react'
+import { FC, useContext, useState } from 'react'
 import postContext from '../context/postContext'
-import styles from '../styles/NewPostForm.module.css'
+import styles from '../styles/EditPostForm.module.css'
+import post from '../typescript/interface/post'
 import CheckErrorInResponse from '../utils/checkErrorInResponse'
 
-const NewPostForm = () => {
+interface Props {
+  post: post
+  handleEditButton: () => void
+}
+
+const EditPostForm: FC<Props> = ({ post, handleEditButton }) => {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
   const { dispatch } = useContext(postContext)
@@ -17,12 +23,12 @@ const NewPostForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-      method: 'POST',
+    fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}`, {
+      method: 'PUT',
       body: JSON.stringify({
+        ...post,
         title: title,
         body: body,
-        userId: 1,
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -30,9 +36,10 @@ const NewPostForm = () => {
     })
       .then(CheckErrorInResponse)
       .then((json) => {
-        dispatch({ type: 'ADD', payload: json })
+        dispatch({ type: 'UPDATE', payload: json })
         setTitle('')
         setBody('')
+        handleEditButton()
       })
       .catch((error) => {
         console.log(error)
@@ -41,7 +48,7 @@ const NewPostForm = () => {
 
   return (
     <form action='#' className={styles.container} onSubmit={handleSubmit}>
-      <h5>Create a new Post</h5>
+      <h5>Edit Post</h5>
       <div>
         <label htmlFor='title'>Title:</label>
         <input
@@ -68,9 +75,9 @@ const NewPostForm = () => {
           value={body}
         />
       </div>
-      <button>Create Post</button>
+      <button>Update Post</button>
     </form>
   )
 }
 
-export default NewPostForm
+export default EditPostForm

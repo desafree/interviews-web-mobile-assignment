@@ -4,7 +4,7 @@ import post from '../typescript/interface/post'
 function postsReducer(state: post[], action: actionPostsReducer) {
   if (action.type === 'UPDATE' && !Array.isArray(action.payload)) {
     const newState = state.map((post) => {
-      if (!Array.isArray(action.payload) && post.id === action.payload.id) action.payload
+      if (!Array.isArray(action.payload) && post.id === action.payload.id) return action.payload
       return post
     })
     return newState

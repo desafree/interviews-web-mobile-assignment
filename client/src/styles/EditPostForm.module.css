@@ -1,13 +1,8 @@
 .container {
-  padding: 40px;
-  background: #ffffff;
-  box-shadow: 0px 15px 20px -5px rgba(13, 113, 130, 0.15);
-  border-radius: 5px;
-  max-width: 540px;
-  margin: 0 auto 50px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative;
 }
 
 .container h5 {
@@ -61,4 +56,11 @@
 .container button:hover {
   background-color: orange;
   border: 1px solid #fff;
+}
+
+.close {
+  position: absolute;
+  margin: 0;
+  top: 20px;
+  right: 20px;
 }
