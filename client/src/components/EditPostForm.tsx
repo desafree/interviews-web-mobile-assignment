@@ -3,6 +3,8 @@ import styles from '../styles/EditPostForm.module.css'
 import post from '../typescript/interface/post'
 import LoadingResponse from './UI/LoadingResponse'
 import Input from '../components/UI/Input'
+import { doc, updateDoc } from 'firebase/firestore'
+import { db } from '../firebase-config'
 
 interface Props {
   post: post
@@ -23,28 +25,20 @@ const EditPostForm: FC<Props> = ({ post, handleEditButton }) => {
     setBody(e.currentTarget.value)
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // fetchData(
-    //   `https://jsonplaceholder.typicode.com/posts/${post.id}`,
-    //   (json) => {
-    //     dispatch({ type: 'UPDATE', payload: json })
-    //     setTitle('')
-    //     setBody('')
-    //     handleEditButton()
-    //   },
-    //   {
-    //     method: 'PUT',
-    //     body: JSON.stringify({
-    //       ...post,
-    //       title: title,
-    //       body: body,
-    //     }),
-    //     headers: {
-    //       'Content-type': 'application/json; charset=UTF-8',
-    //     },
-    //   },
-    // )
+    setLoading(true)
+    const newValue = { title, body }
+    try {
+      const postDocReference = doc(db, 'posts', post.id)
+      await updateDoc(postDocReference, newValue)
+      setLoading(false)
+      setTitle('')
+      setBody('')
+      handleEditButton()
+    } catch (error) {
+      setError(true)
+    }
   }
 
   return (

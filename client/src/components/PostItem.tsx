@@ -4,6 +4,8 @@ import styles from '../styles/PostItem.module.css'
 import LoadingResponse from './UI/LoadingResponse'
 import EditPostForm from './EditPostForm'
 import PostContent from './PostContent'
+import { deleteDoc, doc } from 'firebase/firestore'
+import { db } from '../firebase-config'
 
 interface Props {
   post: post
@@ -14,16 +16,15 @@ const PostItem: FC<Props> = ({ post }) => {
   const [error, setError] = useState(false)
   const [edit, setEdit] = useState(false)
 
-  const handleDeleteButton = () => {
-    // fetchData(
-    //   `https://jsonplaceholder.typicode.com/posts/${post.id}`,
-    //   () => {
-    //     dispatch({ type: 'REMOVE', payload: post })
-    //   },
-    //   {
-    //     method: 'DELETE',
-    //   },
-    // )
+  const handleDeleteButton = async () => {
+    setLoading(true)
+    try {
+      const postDocReference = doc(db, 'posts', post.id)
+      await deleteDoc(postDocReference)
+      setLoading(false)
+    } catch (error) {
+      setError(true)
+    }
   }
 
   const handleEditButton = () => {
