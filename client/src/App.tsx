@@ -4,19 +4,37 @@ import NewPostForm from './components/NewPostForm'
 import Pagination from './components/Pagination'
 import LoadingResponse from './components/UI/LoadingResponse'
 import './App.css'
+import { collection, onSnapshot } from 'firebase/firestore'
+import post from './typescript/interface/post'
+import { db } from './firebase-config'
 
 function App() {
-  const [posts, setPosts] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [posts, setPosts] = useState<post[]>([])
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage] = useState(7)
+  const postsCollectionReference = collection(db, 'posts')
 
-  // useEffect(() => {
-  //   fetchData('https://jsonplaceholder.typicode.com/posts/', (json) => {
-  //     dispatch({ type: 'GET', payload: json })
-  //   })
-  // }, [])
+  useEffect(() => {
+    const unsubscribeFromListener = onSnapshot(
+      postsCollectionReference,
+      (snapshot) => {
+        setPosts(
+          snapshot.docs.map((doc) => {
+            return { ...doc.data(), id: doc.id } as post
+          }),
+        )
+        setLoading(false)
+      },
+      () => {
+        setError(true)
+      },
+    )
+    return () => {
+      unsubscribeFromListener()
+    }
+  }, [])
 
   const indexOfLastPost = currentPage * postsPerPage
   const indexOfFirstPost = indexOfLastPost - postsPerPage

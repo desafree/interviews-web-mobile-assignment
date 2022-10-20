@@ -1,6 +1,7 @@
 interface Post {
   userId: number
-  id: number
+  postId: number
+  id: string
   title: string
   body: string
 }

@@ -5,7 +5,7 @@ import styles from '../styles/CommentsList.module.css'
 import LoadingResponse from './UI/LoadingResponse'
 
 interface Props {
-  postId: number
+  postId: string
 }
 
 const CommentList: FC<Props> = ({ postId }) => {
