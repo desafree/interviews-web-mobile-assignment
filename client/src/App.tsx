@@ -1,23 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react'
-import postContext from './context/postContext'
+import React, { useEffect, useState } from 'react'
 import PostsList from './components/PostsList'
 import NewPostForm from './components/NewPostForm'
 import Pagination from './components/Pagination'
-import useFetch from './hooks/useFetch'
 import LoadingResponse from './components/UI/LoadingResponse'
 import './App.css'
 
 function App() {
-  const { loading, error, fetchData } = useFetch()
-  const { posts, dispatch } = useContext(postContext)
+  const [posts, setPosts] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage] = useState(7)
 
-  useEffect(() => {
-    fetchData('https://jsonplaceholder.typicode.com/posts/', (json) => {
-      dispatch({ type: 'GET', payload: json })
-    })
-  }, [])
+  // useEffect(() => {
+  //   fetchData('https://jsonplaceholder.typicode.com/posts/', (json) => {
+  //     dispatch({ type: 'GET', payload: json })
+  //   })
+  // }, [])
 
   const indexOfLastPost = currentPage * postsPerPage
   const indexOfFirstPost = indexOfLastPost - postsPerPage

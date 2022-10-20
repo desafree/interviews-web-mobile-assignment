@@ -4,16 +4,13 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import Layout from './components/UI/Layout'
-import PostContextProvider from './context/PostContextProvider'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
-    <PostContextProvider>
-      <Layout>
-        <App />
-      </Layout>
-    </PostContextProvider>
+    <Layout>
+      <App />
+    </Layout>
   </React.StrictMode>,
 )
 

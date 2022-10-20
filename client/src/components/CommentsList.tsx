@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import CommentItem from './CommentItem'
 import comment from '../typescript/interface/comment'
-import useFetch from '../hooks/useFetch'
 import styles from '../styles/CommentsList.module.css'
 import LoadingResponse from './UI/LoadingResponse'
 
@@ -10,13 +9,14 @@ interface Props {
 }
 
 const CommentList: FC<Props> = ({ postId }) => {
-  const { loading, error, fetchData } = useFetch()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
   const [comments, setComments] = useState<comment[]>([])
 
   useEffect(() => {
-    fetchData(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`, (json) => {
-      setComments(json)
-    })
+    // fetchData(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`, (json) => {
+    //   setComments(json)
+    // })
   }, [])
 
   return (

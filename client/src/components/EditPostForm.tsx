@@ -1,8 +1,6 @@
-import { FC, useContext, useState } from 'react'
-import postContext from '../context/postContext'
+import { FC, useState } from 'react'
 import styles from '../styles/EditPostForm.module.css'
 import post from '../typescript/interface/post'
-import useFetch from '../hooks/useFetch'
 import LoadingResponse from './UI/LoadingResponse'
 import Input from '../components/UI/Input'
 
@@ -12,10 +10,10 @@ interface Props {
 }
 
 const EditPostForm: FC<Props> = ({ post, handleEditButton }) => {
-  const { loading, error, fetchData } = useFetch()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
-  const { dispatch } = useContext(postContext)
 
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value)
@@ -27,26 +25,26 @@ const EditPostForm: FC<Props> = ({ post, handleEditButton }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    fetchData(
-      `https://jsonplaceholder.typicode.com/posts/${post.id}`,
-      (json) => {
-        dispatch({ type: 'UPDATE', payload: json })
-        setTitle('')
-        setBody('')
-        handleEditButton()
-      },
-      {
-        method: 'PUT',
-        body: JSON.stringify({
-          ...post,
-          title: title,
-          body: body,
-        }),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
-      },
-    )
+    // fetchData(
+    //   `https://jsonplaceholder.typicode.com/posts/${post.id}`,
+    //   (json) => {
+    //     dispatch({ type: 'UPDATE', payload: json })
+    //     setTitle('')
+    //     setBody('')
+    //     handleEditButton()
+    //   },
+    //   {
+    //     method: 'PUT',
+    //     body: JSON.stringify({
+    //       ...post,
+    //       title: title,
+    //       body: body,
+    //     }),
+    //     headers: {
+    //       'Content-type': 'application/json; charset=UTF-8',
+    //     },
+    //   },
+    // )
   }
 
   return (
