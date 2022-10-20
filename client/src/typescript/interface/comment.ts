@@ -1,6 +1,6 @@
 interface comment {
   postId: number
-  id: number
+  id: string
   name: string
   email: string
   body: string
