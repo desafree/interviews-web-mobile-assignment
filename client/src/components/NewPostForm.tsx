@@ -2,12 +2,15 @@ import { useState } from 'react'
 import styles from '../styles/NewPostForm.module.css'
 import LoadingResponse from './UI/LoadingResponse'
 import Input from './UI/Input'
+import { collection, addDoc } from 'firebase/firestore'
+import { db } from '../firebase-config'
 
 const NewPostForm = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
+  const postsCollectionReference = collection(db, 'posts')
 
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value)
@@ -17,27 +20,21 @@ const NewPostForm = () => {
     setBody(e.currentTarget.value)
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // fetchData(
-    //   'https://jsonplaceholder.typicode.com/posts',
-    //   (json) => {
-    //     dispatch({ type: 'ADD', payload: json })
-    //     setTitle('')
-    //     setBody('')
-    //   },
-    //   {
-    //     method: 'POST',
-    //     body: JSON.stringify({
-    //       title: title,
-    //       body: body,
-    //       userId: 1,
-    //     }),
-    //     headers: {
-    //       'Content-type': 'application/json; charset=UTF-8',
-    //     },
-    //   },
-    // )
+    setLoading(true)
+    try {
+      await addDoc(postsCollectionReference, {
+        userId: 1,
+        title: title,
+        body: body,
+      })
+      setLoading(false)
+      setTitle('')
+      setBody('')
+    } catch (error) {
+      setError(true)
+    }
   }
 
   return (
