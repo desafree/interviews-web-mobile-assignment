@@ -22,7 +22,10 @@ function App() {
   const indexOfLastPost = currentPage * postsPerPage
   const indexOfFirstPost = indexOfLastPost - postsPerPage
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost)
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber)
+    window.scrollTo(0, 0)
+  }
 
   return (
     <>
