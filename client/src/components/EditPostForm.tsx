@@ -2,7 +2,8 @@ import { FC, useContext, useState } from 'react'
 import postContext from '../context/postContext'
 import styles from '../styles/EditPostForm.module.css'
 import post from '../typescript/interface/post'
-import CheckErrorInResponse from '../utils/checkErrorInResponse'
+import useFetch from '../hooks/useFetch'
+import LoadingResponse from './UI/LoadingResponse'
 
 interface Props {
   post: post
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const EditPostForm: FC<Props> = ({ post, handleEditButton }) => {
+  const { loading, error, fetchData } = useFetch()
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
   const { dispatch } = useContext(postContext)
@@ -23,27 +25,26 @@ const EditPostForm: FC<Props> = ({ post, handleEditButton }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        ...post,
-        title: title,
-        body: body,
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then(CheckErrorInResponse)
-      .then((json) => {
+    fetchData(
+      `https://jsonplaceholder.typicode.com/posts/${post.id}`,
+      (json) => {
         dispatch({ type: 'UPDATE', payload: json })
         setTitle('')
         setBody('')
         handleEditButton()
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+      },
+      {
+        method: 'PUT',
+        body: JSON.stringify({
+          ...post,
+          title: title,
+          body: body,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      },
+    )
   }
 
   return (
@@ -76,6 +77,8 @@ const EditPostForm: FC<Props> = ({ post, handleEditButton }) => {
         />
       </div>
       <button>Update Post</button>
+      {loading && !error && <LoadingResponse value='loading...' />}
+      {error && <LoadingResponse value='Something went wrong!' />}
     </form>
   )
 }

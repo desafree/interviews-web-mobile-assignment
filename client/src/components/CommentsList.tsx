@@ -1,36 +1,35 @@
 import { FC, useEffect, useState } from 'react'
 import CommentItem from './CommentItem'
-import CheckErrorInResponse from '../utils/checkErrorInResponse'
 import comment from '../typescript/interface/comment'
+import useFetch from '../hooks/useFetch'
 import styles from '../styles/CommentsList.module.css'
+import LoadingResponse from './UI/LoadingResponse'
 
 interface Props {
   postId: number
 }
 
 const CommentList: FC<Props> = ({ postId }) => {
+  const { loading, error, fetchData } = useFetch()
   const [comments, setComments] = useState<comment[]>([])
 
   useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`)
-      .then(CheckErrorInResponse)
-      .then((json) => {
-        setComments(json)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    fetchData(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`, (json) => {
+      setComments(json)
+    })
   }, [])
 
   return (
     <>
-      {comments.length > 0 && (
+      {loading && !error && <LoadingResponse value='loading...' />}
+      {!loading && !error && (
         <ul className={styles.container}>
           {comments.map((comment) => {
             return <CommentItem key={comment.id} comment={comment} />
           })}
         </ul>
       )}
+      {error && <LoadingResponse value='Something went wrong!' />}
     </>
   )
 }

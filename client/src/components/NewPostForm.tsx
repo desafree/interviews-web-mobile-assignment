@@ -1,9 +1,11 @@
 import { useContext, useState } from 'react'
 import postContext from '../context/postContext'
 import styles from '../styles/NewPostForm.module.css'
-import CheckErrorInResponse from '../utils/checkErrorInResponse'
+import useFetch from '../hooks/useFetch'
+import LoadingResponse from './UI/LoadingResponse'
 
 const NewPostForm = () => {
+  const { loading, error, fetchData } = useFetch()
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
   const { dispatch } = useContext(postContext)
@@ -17,26 +19,25 @@ const NewPostForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-      method: 'POST',
-      body: JSON.stringify({
-        title: title,
-        body: body,
-        userId: 1,
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then(CheckErrorInResponse)
-      .then((json) => {
+    fetchData(
+      'https://jsonplaceholder.typicode.com/posts',
+      (json) => {
         dispatch({ type: 'ADD', payload: json })
         setTitle('')
         setBody('')
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+      },
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          title: title,
+          body: body,
+          userId: 1,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      },
+    )
   }
 
   return (
@@ -69,6 +70,8 @@ const NewPostForm = () => {
         />
       </div>
       <button>Create Post</button>
+      {loading && !error && <LoadingResponse value='loading...' />}
+      {error && <LoadingResponse value='Something went wrong!' />}
     </form>
   )
 }

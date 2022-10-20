@@ -2,30 +2,31 @@ import { FC, useContext, useState } from 'react'
 import postContext from '../context/postContext'
 import post from '../typescript/interface/post'
 import styles from '../styles/PostItem.module.css'
-import CheckErrorInResponse from '../utils/checkErrorInResponse'
+import LoadingResponse from './UI/LoadingResponse'
 import EditPostForm from './EditPostForm'
 import CommentList from './CommentsList'
+import useFetch from '../hooks/useFetch'
 
 interface Props {
   post: post
 }
 
 const PostItem: FC<Props> = ({ post }) => {
+  const { loading, error, fetchData } = useFetch()
   const { dispatch } = useContext(postContext)
   const [edit, setEdit] = useState(false)
   const [comment, setComment] = useState(false)
 
   const handleCloseButton = () => {
-    fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}`, {
-      method: 'DELETE',
-    })
-      .then(CheckErrorInResponse)
-      .then(() => {
+    fetchData(
+      `https://jsonplaceholder.typicode.com/posts/${post.id}`,
+      () => {
         dispatch({ type: 'REMOVE', payload: post })
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+      },
+      {
+        method: 'DELETE',
+      },
+    )
   }
 
   const handleEditButton = () => {
@@ -56,6 +57,8 @@ const PostItem: FC<Props> = ({ post }) => {
       <button className={styles.close} onClick={handleCloseButton}>
         <img src='/images/close.svg' alt='' />
       </button>
+      {loading && !error && <LoadingResponse value='loading...' />}
+      {error && <LoadingResponse value='Something went wrong!' />}
     </li>
   )
 }
