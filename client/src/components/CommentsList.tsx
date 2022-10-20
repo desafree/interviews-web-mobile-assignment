@@ -21,6 +21,7 @@ const CommentList: FC<Props> = ({ postId }) => {
 
   return (
     <>
+      {error && <LoadingResponse value='Something went wrong!' />}
       {loading && !error && <LoadingResponse value='loading...' />}
       {!loading && !error && (
         <ul className={styles.container}>
@@ -29,7 +30,6 @@ const CommentList: FC<Props> = ({ postId }) => {
           })}
         </ul>
       )}
-      {error && <LoadingResponse value='Something went wrong!' />}
     </>
   )
 }

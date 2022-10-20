@@ -13,17 +13,16 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage] = useState(7)
 
-  const indexOfLastPost = currentPage * postsPerPage
-  const indexOfFirstPost = indexOfLastPost - postsPerPage
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost)
-
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
-
   useEffect(() => {
     fetchData('https://jsonplaceholder.typicode.com/posts/', (json) => {
       dispatch({ type: 'GET', payload: json })
     })
   }, [])
+
+  const indexOfLastPost = currentPage * postsPerPage
+  const indexOfFirstPost = indexOfLastPost - postsPerPage
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost)
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
 
   return (
     <>

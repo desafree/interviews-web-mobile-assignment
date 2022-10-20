@@ -4,7 +4,7 @@ import post from '../typescript/interface/post'
 import styles from '../styles/PostItem.module.css'
 import LoadingResponse from './UI/LoadingResponse'
 import EditPostForm from './EditPostForm'
-import CommentList from './CommentsList'
+import PostContent from './PostContent'
 import useFetch from '../hooks/useFetch'
 
 interface Props {
@@ -15,9 +15,8 @@ const PostItem: FC<Props> = ({ post }) => {
   const { loading, error, fetchData } = useFetch()
   const { dispatch } = useContext(postContext)
   const [edit, setEdit] = useState(false)
-  const [comment, setComment] = useState(false)
 
-  const handleCloseButton = () => {
+  const handleDeleteButton = () => {
     fetchData(
       `https://jsonplaceholder.typicode.com/posts/${post.id}`,
       () => {
@@ -33,32 +32,18 @@ const PostItem: FC<Props> = ({ post }) => {
     setEdit((prevState) => !prevState)
   }
 
-  const handleCommentButton = () => {
-    setComment((prevState) => !prevState)
-  }
-
   return (
     <li className={styles.container}>
-      {!edit && (
-        <div className={styles.text}>
-          <h5>{post.title}</h5>
-          <p>{post.body}</p>
-          <button className={styles.comment} onClick={handleCommentButton}>
-            comments{' '}
-            <img src={comment ? '/images/arrow-up.svg' : '/images/arrow-down.svg'} alt='' />
-          </button>
-          {comment && <CommentList postId={post.id} />}
-        </div>
-      )}
+      {!edit && <PostContent post={post} />}
       {edit && <EditPostForm post={post} handleEditButton={handleEditButton} />}
+      {loading && !error && <LoadingResponse value='loading...' />}
+      {error && <LoadingResponse value='Something went wrong!' />}
       <button className={styles.edit} onClick={handleEditButton}>
         Edit
       </button>
-      <button className={styles.close} onClick={handleCloseButton}>
+      <button className={styles.close} onClick={handleDeleteButton}>
         <img src='/images/close.svg' alt='' />
       </button>
-      {loading && !error && <LoadingResponse value='loading...' />}
-      {error && <LoadingResponse value='Something went wrong!' />}
     </li>
   )
 }
