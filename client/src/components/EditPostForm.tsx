@@ -52,8 +52,8 @@ const EditPostForm: FC<Props> = ({ post, handleEditButton }) => {
   return (
     <form action='#' className={styles.container} onSubmit={handleSubmit}>
       <h5>Edit Post</h5>
-      <Input value={title} onChangeFunction={handleChangeTitle}></Input>
-      <Input value={body} onChangeFunction={handleChangeBody}></Input>
+      <Input value={title} onChangeFunction={handleChangeTitle} name='title'></Input>
+      <Input value={body} onChangeFunction={handleChangeBody} name='body'></Input>
       <button>Update Post</button>
       {loading && !error && <LoadingResponse value='loading...' />}
       {error && <LoadingResponse value='Something went wrong!' />}
