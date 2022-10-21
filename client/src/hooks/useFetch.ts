@@ -6,17 +6,14 @@ const useFetch = () => {
   const [error, setError] = useState(false)
 
   function fetchData(url: string, cb: (json: any) => void, obj?: any) {
-    console.log(url)
     setLoading(true)
     fetch(url, obj)
       .then(CheckErrorInResponse)
       .then((json) => {
-        console.log(json)
         cb(json)
         setLoading(false)
       })
       .catch((error) => {
-        console.log(error)
         setError(true)
       })
   }

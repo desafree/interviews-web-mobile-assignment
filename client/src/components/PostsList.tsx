@@ -8,7 +8,6 @@ interface Props {
 }
 
 const PostsList: FC<Props> = ({ posts }) => {
-  console.log(posts)
   return (
     <>
       <h4 className={styles.title}>Posts</h4>

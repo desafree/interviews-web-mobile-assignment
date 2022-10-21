@@ -14,7 +14,7 @@ const CommentList: FC<Props> = ({ postId }) => {
   const [comments, setComments] = useState<comment[]>([])
 
   useEffect(() => {
-    fetchData(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`, (json) => {
+    fetchData(`http://localhost:3001/posts/${postId}/comments`, (json) => {
       setComments(json)
     })
   }, [])
@@ -23,11 +23,16 @@ const CommentList: FC<Props> = ({ postId }) => {
     <>
       {error && <LoadingResponse value='Something went wrong!' />}
       {loading && !error && <LoadingResponse value='loading...' />}
-      {!loading && !error && (
+      {!loading && !error && comments.length > 0 && (
         <ul className={styles.container}>
           {comments.map((comment) => {
-            return <CommentItem key={comment.id} comment={comment} />
+            return <CommentItem key={comment._id} comment={comment} />
           })}
+        </ul>
+      )}
+      {!loading && !error && comments.length === 0 && (
+        <ul className={styles.container}>
+          <p>No comments...</p>
         </ul>
       )}
     </>
