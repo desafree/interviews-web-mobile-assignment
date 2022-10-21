@@ -108,7 +108,7 @@ The requirements for this challenge are the exact same requirements of the Front
 
 !!!WARNING:Because on JSONPlaceholder resource will not be really updated on the server but it will be faked as if, when you create multiple new post you will have children with the same key (101).
 
-Tech Stack: React + TypeScript, CSS module.
+Tech Stack: React + TypeScript, CSS module
 
 ##### How to run
 
