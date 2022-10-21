@@ -112,9 +112,28 @@ Tech Stack: React + TypeScript, CSS module.
 
 ##### How to run
 
-```
+```bash
   # move into client folder
   cd client
+  # install dependencies
+  npm install
+  # start the application
+  npm run start
+```
+
+#### Backend challenge 1/2: firebase
+
+Completed the challenge using firebase with firestore as a BE. Remove the context from the Frontend challenge and use onSNapshot functionality to update posts.
+
+Tech Stack: React + TypeScript, CSS module, firebase.
+
+##### How to run
+
+```bash
+  # move into client folder
+  cd client
+  # switch branch from main to firebase
+  git checkout firebase
   # install dependencies
   npm install
   # start the application
