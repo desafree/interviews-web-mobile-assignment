@@ -139,3 +139,28 @@ Tech Stack: React + TypeScript, CSS module, firebase.
   # start the application
   npm run start
 ```
+
+#### Backend challenge 2/2: Node
+
+Completed the challenge using Express.js to handle REST functionality and MongoDB+Mongoose to store and interact with the data. Used useContext hook to store data on the FE.
+
+Tech Stack: React + TypeScript, CSS module, Express.js, MongoDB.
+
+##### How to run
+
+```bash
+  # switch branch from main to node
+  git checkout node
+  # move into server folder
+  cd server
+  # install dependencies
+  npm install
+  # start the server
+  npm run devStart
+  # move into client folder
+  cd client
+  # install dependencies
+  npm install
+  # start the application FE
+  npm run start
+```
