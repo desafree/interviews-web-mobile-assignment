@@ -22,7 +22,7 @@ const NewPostForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     fetchData(
-      'https://jsonplaceholder.typicode.com/posts',
+      'http://localhost:3001/posts',
       (json) => {
         dispatch({ type: 'ADD', payload: json })
         setTitle('')

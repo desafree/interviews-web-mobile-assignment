@@ -23,6 +23,21 @@ app.get("/posts", async (req, res) => {
   });
 });
 
+app.post("/posts", async (req, res) => {
+  const post = new PostModel({
+    userId: req.body.userId,
+    title: req.body.title,
+    body: req.body.body,
+  });
+
+  post.save((err, doc) => {
+    if (err) {
+      res.send(err);
+    }
+    res.send(doc);
+  });
+});
+
 app.listen(3001, () => {
   console.log("Server running on port 3001");
 });

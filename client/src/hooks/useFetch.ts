@@ -10,6 +10,7 @@ const useFetch = () => {
     fetch(url, obj)
       .then(CheckErrorInResponse)
       .then((json) => {
+        console.log(json)
         cb(json)
         setLoading(false)
       })
