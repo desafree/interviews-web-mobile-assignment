@@ -40,8 +40,26 @@ app.post("/posts", (req, res) => {
 
 app.delete("/posts/:id", async (req, res) => {
   const id = req.params.id;
-  await PostModel.findByIdAndDelete(id);
-  res.send({ message: "deleted successfully" });
+  try {
+    await PostModel.findByIdAndDelete(id);
+    res.send({ message: "deleted successfully" });
+  } catch (error) {
+    res.send(err);
+  }
+});
+
+app.put("/posts/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    var updatedValue = await PostModel.findByIdAndUpdate(
+      id,
+      { title: req.body.title, body: req.body.body },
+      { new: true }
+    );
+    res.send(updatedValue);
+  } catch (error) {
+    res.send(err);
+  }
 });
 
 app.listen(3001, () => {
