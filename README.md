@@ -149,7 +149,7 @@ Tech Stack: React + TypeScript, CSS module, Express.js, MongoDB.
 ##### How to run
 
 ```bash
-  # switch branch from main to firebase
+  # switch branch from main to node
   git checkout node
   # move into server folder
   cd server
