@@ -18,7 +18,7 @@ const PostItem: FC<Props> = ({ post }) => {
 
   const handleDeleteButton = () => {
     fetchData(
-      `https://jsonplaceholder.typicode.com/posts/${post.id}`,
+      `https://jsonplaceholder.typicode.com/posts/${post._id}`,
       () => {
         dispatch({ type: 'REMOVE', payload: post })
       },

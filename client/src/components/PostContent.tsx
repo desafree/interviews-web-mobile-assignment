@@ -20,7 +20,7 @@ const PostContent: FC<Props> = ({ post }) => {
       <button className={styles.comment} onClick={handleCommentButton}>
         comments <img src={comment ? '/images/arrow-up.svg' : '/images/arrow-down.svg'} alt='' />
       </button>
-      {comment && <CommentList postId={post.id} />}
+      {comment && <CommentList postId={post._id} />}
     </div>
   )
 }

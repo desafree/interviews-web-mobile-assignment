@@ -14,7 +14,7 @@ function App() {
   const [postsPerPage] = useState(7)
 
   useEffect(() => {
-    fetchData('https://jsonplaceholder.typicode.com/posts/', (json) => {
+    fetchData('http://localhost:3001/posts', (json) => {
       dispatch({ type: 'GET', payload: json })
     })
   }, [])

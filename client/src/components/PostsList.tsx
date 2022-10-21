@@ -8,12 +8,13 @@ interface Props {
 }
 
 const PostsList: FC<Props> = ({ posts }) => {
+  console.log(posts)
   return (
     <>
       <h4 className={styles.title}>Posts</h4>
       <ul className={styles.container}>
         {posts.map((post) => {
-          return <PostItem key={post.id} post={post} />
+          return <PostItem key={post._id} post={post} />
         })}
       </ul>
     </>

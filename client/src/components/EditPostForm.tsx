@@ -28,7 +28,7 @@ const EditPostForm: FC<Props> = ({ post, handleEditButton }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     fetchData(
-      `https://jsonplaceholder.typicode.com/posts/${post.id}`,
+      `https://jsonplaceholder.typicode.com/posts/${post._id}`,
       (json) => {
         dispatch({ type: 'UPDATE', payload: json })
         setTitle('')
