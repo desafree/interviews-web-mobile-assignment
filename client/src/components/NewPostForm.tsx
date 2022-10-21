@@ -2,7 +2,7 @@ import { useState } from 'react'
 import styles from '../styles/NewPostForm.module.css'
 import LoadingResponse from './UI/LoadingResponse'
 import Input from './UI/Input'
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase-config'
 
 const NewPostForm = () => {
@@ -28,6 +28,7 @@ const NewPostForm = () => {
         userId: 1,
         title: title,
         body: body,
+        createdAt: serverTimestamp(),
       })
       setLoading(false)
       setTitle('')

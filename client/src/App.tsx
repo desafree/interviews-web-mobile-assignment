@@ -3,8 +3,7 @@ import PostsList from './components/PostsList'
 import NewPostForm from './components/NewPostForm'
 import Pagination from './components/Pagination'
 import LoadingResponse from './components/UI/LoadingResponse'
-import './App.css'
-import { collection, onSnapshot } from 'firebase/firestore'
+import { collection, onSnapshot, query, orderBy } from 'firebase/firestore'
 import post from './typescript/interface/post'
 import { db } from './firebase-config'
 
@@ -14,7 +13,7 @@ function App() {
   const [error, setError] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage] = useState(7)
-  const postsCollectionReference = collection(db, 'posts')
+  const postsCollectionReference = query(collection(db, 'posts'), orderBy('createdAt', 'desc'))
 
   useEffect(() => {
     const unsubscribeFromListener = onSnapshot(
