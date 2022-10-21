@@ -14,7 +14,7 @@ mongoose.connect(
   }
 );
 
-app.get("/posts", async (req, res) => {
+app.get("/posts", (req, res) => {
   PostModel.find({}, (err, result) => {
     if (err) {
       res.send(err);
@@ -23,7 +23,7 @@ app.get("/posts", async (req, res) => {
   });
 });
 
-app.post("/posts", async (req, res) => {
+app.post("/posts", (req, res) => {
   const post = new PostModel({
     userId: req.body.userId,
     title: req.body.title,
@@ -36,6 +36,12 @@ app.post("/posts", async (req, res) => {
     }
     res.send(doc);
   });
+});
+
+app.delete("/posts/:id", async (req, res) => {
+  const id = req.params.id;
+  await PostModel.findByIdAndDelete(id);
+  res.send({ message: "deleted successfully" });
 });
 
 app.listen(3001, () => {
