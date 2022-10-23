@@ -102,17 +102,19 @@ The requirements for this challenge are the exact same requirements of the Front
 
 # How to run
 
+Task concluded!
+
 #### Frontend challenge
 
-**Completed all the challenges**
-
-!!!WARNING:Because on JSONPlaceholder resource will not be really updated on the server but it will be faked as if, when you create multiple new post you will have children with the same key (101).
+!!!WARNING:Because on JSONPlaceholder resource will not be really updated on the server but it will be faked as if, when you create multiple new post you will have children with the same key (101) -> to prevent this the new post after the first will not be saved.
 
 Tech Stack: React + TypeScript, CSS module.
 
 ##### How to run
 
 ```bash
+  # switch branch to main
+  git checkout main
   # move into client folder
   cd client
   # install dependencies
@@ -123,17 +125,17 @@ Tech Stack: React + TypeScript, CSS module.
 
 #### Backend challenge 1/2: firebase
 
-Completed the challenge using firebase with firestore as a BE. Remove the context from the Frontend challenge and use onSNapshot functionality to update posts.
+Completed the challenge using firebase with firestore as a BE. Remove the context from the Frontend challenge and use onSnapshot functionality to update posts.
 
 Tech Stack: React + TypeScript, CSS module, firebase.
 
 ##### How to run
 
 ```bash
-  # move into client folder
-  cd client
   # switch branch from main to firebase
   git checkout firebase
+  # move into client folder
+  cd client
   # install dependencies
   npm install
   # start the application
@@ -157,6 +159,11 @@ Tech Stack: React + TypeScript, CSS module, Express.js, MongoDB.
   npm install
   # start the server
   npm run devStart
+
+  # open new terminal window on the directory
+
+  # switch branch from main to node
+  git checkout node
   # move into client folder
   cd client
   # install dependencies
@@ -164,3 +171,7 @@ Tech Stack: React + TypeScript, CSS module, Express.js, MongoDB.
   # start the application FE
   npm run start
 ```
+
+#### Mobile challenge
+
+Challenge not completed.
