@@ -20,7 +20,7 @@ app.get("/posts", async (req, res) => {
     const posts = await PostModel.find({});
     res.send(posts);
   } catch (error) {
-    res.send(error);
+    res.status(404).send(error);
   }
 });
 
@@ -35,7 +35,7 @@ app.post("/posts", async (req, res) => {
     const newPost = await post.save();
     res.send(newPost);
   } catch (error) {
-    res.send(error);
+    res.status(404).send(error);
   }
 });
 
@@ -45,7 +45,7 @@ app.delete("/posts/:id", async (req, res) => {
     await PostModel.findByIdAndDelete(id);
     res.send({ message: "deleted successfully" });
   } catch (error) {
-    res.send(err);
+    res.status(404).send(err);
   }
 });
 
@@ -59,7 +59,7 @@ app.put("/posts/:id", async (req, res) => {
     );
     res.send(updatedValue);
   } catch (error) {
-    res.send(err);
+    res.status(404).send(err);
   }
 });
 
@@ -68,7 +68,7 @@ app.get("/posts/:id/comments", async (req, res) => {
     const comments = await CommentModel.find({ postId: req.params.id });
     res.send(comments);
   } catch (error) {
-    res.send(error);
+    res.status(404).send(error);
   }
 });
 
