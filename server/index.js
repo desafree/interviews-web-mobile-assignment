@@ -1,7 +1,7 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
+const mongoose = require("mongoose");
 const PostModel = require("./models/Post");
 const CommentModel = require("./models/Comment");
 
@@ -15,37 +15,28 @@ mongoose.connect(
   }
 );
 
-app.get("/posts", (req, res) => {
-  PostModel.find({}, (err, result) => {
-    if (err) {
-      res.send(err);
-    }
-    res.send(result);
-  });
+app.get("/posts", async (req, res) => {
+  try {
+    const posts = await PostModel.find({});
+    res.send(posts);
+  } catch (error) {
+    res.send(error);
+  }
 });
 
-app.get("/posts/:id/comments", (req, res) => {
-  CommentModel.find({ postId: req.params.id }, (err, result) => {
-    if (err) {
-      res.send(err);
-    }
-    res.send(result);
-  });
-});
-
-app.post("/posts", (req, res) => {
+app.post("/posts", async (req, res) => {
   const post = new PostModel({
     userId: req.body.userId,
     title: req.body.title,
     body: req.body.body,
   });
 
-  post.save((err, doc) => {
-    if (err) {
-      res.send(err);
-    }
-    res.send(doc);
-  });
+  try {
+    const newPost = await post.save();
+    res.send(newPost);
+  } catch (error) {
+    res.send(error);
+  }
 });
 
 app.delete("/posts/:id", async (req, res) => {
@@ -69,6 +60,15 @@ app.put("/posts/:id", async (req, res) => {
     res.send(updatedValue);
   } catch (error) {
     res.send(err);
+  }
+});
+
+app.get("/posts/:id/comments", async (req, res) => {
+  try {
+    const comments = await CommentModel.find({ postId: req.params.id });
+    res.send(comments);
+  } catch (error) {
+    res.send(error);
   }
 });
 
