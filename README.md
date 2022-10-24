@@ -106,7 +106,7 @@ Task concluded!
 
 #### Frontend challenge
 
-!!!WARNING:Because on JSONPlaceholder resource will not be really updated on the server but it will be faked as if, when you create multiple new post you will have children with the same key (101) -> to prevent this the new post after the first will not be saved.
+!!!WARNING:Because on JSONPlaceholder resource will not be really updated on the server but it will be faked as if, when you create multiple new post you will have children with the same key (101) -> to prevent this the new post after the first will not be saved. Also if you try to send an UPDATE request to JSONPlaceholder for the respective new post, this will result in an error.
 
 Tech Stack: React + TypeScript, CSS module.
 
